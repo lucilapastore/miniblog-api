@@ -1,0 +1,109 @@
+openapi: 3.0.0
+info:
+  title: MiniBlog API
+  description: API REST para gestionar authors y posts (Proyecto Integrador Módulo 2 - DevSpark)
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+    description: Local
+components:
+  schemas:
+    Author:
+      type: object
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        email: { type: string }
+        bio: { type: string }
+        created_at: { type: string, format: date-time }
+    Post:
+      type: object
+      properties:
+        id: { type: integer }
+        title: { type: string }
+        content: { type: string }
+        author_id: { type: integer }
+        published: { type: boolean }
+        created_at: { type: string, format: date-time }
+paths:
+  /authors:
+    get:
+      summary: Listar authors
+      responses:
+        '200': { description: OK }
+    post:
+      summary: Crear author
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Author' }
+      responses:
+        '201': { description: Creado }
+        '400': { description: Datos inválidos }
+  /authors/{id}:
+    get:
+      summary: Detalle de author
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        '200': { description: OK }
+        '404': { description: No encontrado }
+    put:
+      summary: Actualizar author
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        '200': { description: Actualizado }
+        '404': { description: No encontrado }
+    delete:
+      summary: Eliminar author
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        '204': { description: Eliminado }
+        '404': { description: No encontrado }
+  /posts:
+    get:
+      summary: Listar posts
+      responses:
+        '200': { description: OK }
+    post:
+      summary: Crear post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/Post' }
+      responses:
+        '201': { description: Creado }
+        '400': { description: Datos inválidos }
+  /posts/{id}:
+    get:
+      summary: Detalle de post
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        '200': { description: OK }
+        '404': { description: No encontrado }
+    put:
+      summary: Actualizar post
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        '200': { description: Actualizado }
+        '404': { description: No encontrado }
+    delete:
+      summary: Eliminar post
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        '204': { description: Eliminado }
+        '404': { description: No encontrado }
+  /posts/author/{authorId}:
+    get:
+      summary: Posts de un author
+      parameters:
+        - { name: authorId, in: path, required: true, schema: { type: integer } }
+      responses:
+        '200': { description: OK }

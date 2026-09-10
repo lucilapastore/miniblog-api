@@ -2,6 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const pool = require('./db/pool');
+const authorsRouter = require('./routes/authors.routes');
+const postsRouter = require('./routes/posts.routes');
+const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 
@@ -20,7 +23,10 @@ app.get('/health', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+app.use('/authors', authorsRouter);
+app.use('/posts', postsRouter);
+
+// Middleware de manejo de errores: siempre al final, después de las rutas
+app.use(errorHandler);
+
+module.exports = app;
