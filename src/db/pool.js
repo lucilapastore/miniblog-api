@@ -1,0 +1,18 @@
+require('dotenv').config();
+const { Pool } = require('pg');
+
+// Pool centralizado de conexiones a PostgreSQL.
+// Todas las queries de la app pasan por acá.
+const pool = new Pool({
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
+});
+
+pool.on('error', (err) => {
+  console.error('Error inesperado en el pool de PostgreSQL', err);
+});
+
+module.exports = pool;
