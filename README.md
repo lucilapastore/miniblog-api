@@ -30,8 +30,10 @@ Cubren: listado, detalle inexistente (404), creación (201) y validación de FK,
 Ver `openapi.yaml` en la raíz. Se puede visualizar pegando el contenido en https://editor.swagger.io
 
 ## Deployment (Railway)
-- URL pública: [COMPLETAR CON LA URL DE RAILWAY]
-- Variables de entorno configuradas en Railway: mismas claves que `.env.example`, con los valores que provee Railway para su base PostgreSQL.
+- **URL pública:** https://miniblog-api-production-5b95.up.railway.app
+- Endpoint de salud: https://miniblog-api-production-5b95.up.railway.app/health
+- Variables de entorno configuradas en Railway: `DATABASE_URL` referenciando la base PostgreSQL provista por Railway (`${{Postgres.DATABASE_URL}}`).
+- El servicio de PostgreSQL corre en el mismo proyecto de Railway, con el schema y seed cargados desde `sql/setup.sql`.
 
 ## Uso de IA
-Se utilizó Claude (Anthropic) como asistente durante el desarrollo: para planificar la estructura del backend, generar el script SQL de setup/seed, el código de conexión a PostgreSQL, los servicios y rutas CRUD de `authors` y `posts`, los tests con supertest, la especificación OpenAPI y este README. Las decisiones de arquitectura (separación routes/services, queries parametrizadas, middleware de errores) siguieron la guía del proyecto y fueron probadas manualmente (Postman) antes de integrarlas.
+Se utilizó Claude (Anthropic) como asistente durante el desarrollo: para planificar la estructura del backend, generar el script SQL de setup/seed, el código de conexión a PostgreSQL, los servicios y rutas CRUD de `authors` y `posts`, los tests con supertest, la especificación OpenAPI, este README, y para resolver errores puntuales durante el deployment en Railway (comando de inicio, configuración de la conexión pública a la base y encoding de caracteres en el seed). Las decisiones de arquitectura (separación routes/services, queries parametrizadas, middleware de errores) siguieron la guía del proyecto y fueron probadas manualmente (Postman) antes de integrarlas.
