@@ -1,0 +1,16 @@
+{
+  "name": "chat-sherlock",
+  "version": "1.0.0",
+  "description": "SPA para chatear con Sherlock Holmes usando Google Gemini (Vercel Serverless Function como proxy).",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0",
+    "vitest": "^3.2.4"
+  }
+}
